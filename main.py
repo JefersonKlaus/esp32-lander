@@ -78,11 +78,12 @@ def public_status(client):
         lock.acquire()
         try:
             print("public_status")
-            client.publish(
-                topic=TOPIC_STATUS_HARDWARE,
-                msg=json.dumps(spaceship.get_status()),
-                qos=0,
-            )
+            spaceship.generate_mqtt_log()
+            # client.publish(
+            #     topic=TOPIC_STATUS_HARDWARE,
+            #     msg=json.dumps(spaceship.get_status()),
+            #     qos=0,
+            # )
         except Exception as error:
             print("public_status error")
             print(error)
@@ -99,8 +100,6 @@ def main():
     while True:
         try:
             time.sleep(1)
-            # print(sonar.distance_mm())
-            # public_status(client=client)
         except OSError as e:
             print("Failed to connect to MQTT broker. Restarting machine...")
             time.sleep(2)
@@ -114,8 +113,8 @@ lock = _thread.allocate_lock()
 network = get_network_connection()
 client = get_mqtt_connection()
 
-sonar = Sonar(pin_in=14, pin_out=13)
 spaceship = Spaceship(pin_engine=2, pin_sonar_in=14, pin_sonar_out=13)
+spaceship.enable_mqtt_logs(client=client, topic=TOPIC_STATUS_HARDWARE)
 
 if __name__ == "__main__":
     main()

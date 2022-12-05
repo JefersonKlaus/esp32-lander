@@ -16,7 +16,7 @@ class SpaceshipCommand:
 
 
 class SpaceshipStatus:
-    LANDING = "LANDED"
+    LANDING = "LANDING"
     LANDED = "LANDED"
     TAKING_OFF = "TAKING OFF"
     FLYING = "FLYING"
@@ -33,6 +33,9 @@ class Spaceship:
     status_engine = False
     status_altitude = 0
     status_spaceship = SpaceshipStatus.OFF
+
+    mqtt_client = None
+    mqtt_topic = None
 
     def __init__(self, pin_engine=2, pin_sonar_in=14, pin_sonar_out=13):
         self.device_engine = Pin(pin_engine, Pin.OUT)
@@ -69,6 +72,8 @@ class Spaceship:
         self.status_spaceship = SpaceshipStatus.LANDING
         self.spaceship_command = SpaceshipCommand.LAND
 
+        self.generate_mqtt_log()
+
         _last_positions = []
         while True:
             if self.spaceship_command != SpaceshipCommand.LAND:
@@ -93,7 +98,8 @@ class Spaceship:
             else:
                 self.turn_off_engine()
                 break
-            
+
+            self.generate_mqtt_log()
             time.sleep(0.5)
 
         if self.spaceship_command == SpaceshipCommand.LAND:
@@ -102,6 +108,8 @@ class Spaceship:
             print("Spaceship - land: Landing finished")
         else:
             print("Spaceship - land: Aborted Landing")
+
+        self.generate_mqtt_log()
 
     def takeoff(self):
         if self.spaceship_command == SpaceshipCommand.TAKE_OFF:
@@ -112,8 +120,9 @@ class Spaceship:
         self.status_spaceship = SpaceshipStatus.TAKING_OFF
         self.spaceship_command = SpaceshipCommand.TAKE_OFF
 
-        _last_positions = []
+        self.generate_mqtt_log()
 
+        _last_positions = []
         while True:
             if self.spaceship_command != SpaceshipCommand.TAKE_OFF:
                 self.turn_off_engine()
@@ -138,6 +147,7 @@ class Spaceship:
                 self.turn_off_engine()
                 break
 
+            self.generate_mqtt_log()
             time.sleep(0.5)
 
         if self.spaceship_command == SpaceshipCommand.TAKE_OFF:
@@ -146,6 +156,8 @@ class Spaceship:
             print("Spaceship - take_off: Takeoff finished")
         else:
             print("Spaceship - take_off: Aborted takeoff")
+
+        self.generate_mqtt_log()
 
     def abort_operation(self):
         if self.spaceship_command == SpaceshipCommand.ABORT:
@@ -165,3 +177,14 @@ class Spaceship:
         self.status_spaceship = SpaceshipStatus.ABORT
         self.spaceship_command == SpaceshipCommand.ABORT
 
+    def enable_mqtt_logs(self, client, topic):
+        self.mqtt_client = client
+        self.mqtt_topic = topic
+
+    def generate_mqtt_log(self):
+        if self.mqtt_topic and self.mqtt_client:
+            self.mqtt_client.publish(
+                topic=self.mqtt_topic,
+                msg=json.dumps(self.get_status()),
+                qos=0,
+            )
