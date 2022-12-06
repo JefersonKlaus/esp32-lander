@@ -1,0 +1,617 @@
+[
+    {
+        "id": "feaf9d0c80e58894",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "31dca1784f110501",
+        "type": "mqtt in",
+        "z": "feaf9d0c80e58894",
+        "name": "",
+        "topic": "status/hardware",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "0637de2088cb4282",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 700,
+        "y": 200,
+        "wires": [
+            [
+                "f3d16153e745f5d1",
+                "488b88d5054419fe",
+                "6833c8945655e4b0",
+                "98989d846f697d2c",
+                "cbe0f3e1df17e750",
+                "1d790a4b5406b26b",
+                "df7e1729b7342426"
+            ]
+        ]
+    },
+    {
+        "id": "f3d16153e745f5d1",
+        "type": "debug",
+        "z": "feaf9d0c80e58894",
+        "name": "DEBUG status/hardware",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "17a6d518d1dcbd06",
+        "type": "mqtt out",
+        "z": "feaf9d0c80e58894",
+        "name": "",
+        "topic": "spaceship/commands",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "0637de2088cb4282",
+        "x": 1200,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "f0e4c8dc198ef509",
+        "type": "mqtt in",
+        "z": "feaf9d0c80e58894",
+        "name": "",
+        "topic": "spaceship/commands",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "0637de2088cb4282",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 720,
+        "y": 140,
+        "wires": [
+            [
+                "be273913e4b26338",
+                "6955466dc68c7375"
+            ]
+        ]
+    },
+    {
+        "id": "be273913e4b26338",
+        "type": "debug",
+        "z": "feaf9d0c80e58894",
+        "name": "DEBUG spaceship/commands",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "fd39ac30b19d69d6",
+        "type": "ui_button",
+        "z": "feaf9d0c80e58894",
+        "name": "",
+        "group": "212318e59dfaa3b1",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "passthru": false,
+        "label": "Land",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "flight_land",
+        "payload": "LAND",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 950,
+        "y": 860,
+        "wires": [
+            [
+                "17a6d518d1dcbd06"
+            ]
+        ]
+    },
+    {
+        "id": "f7a6b560a3573a3b",
+        "type": "ui_button",
+        "z": "feaf9d0c80e58894",
+        "name": "",
+        "group": "212318e59dfaa3b1",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Takeoff",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "flight_takeoff",
+        "payload": "TAKE_OFF",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 960,
+        "y": 920,
+        "wires": [
+            [
+                "17a6d518d1dcbd06"
+            ]
+        ]
+    },
+    {
+        "id": "488b88d5054419fe",
+        "type": "ui_text",
+        "z": "feaf9d0c80e58894",
+        "group": "212318e59dfaa3b1",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status:",
+        "format": "{{msg.payload.status}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 960,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "6833c8945655e4b0",
+        "type": "ui_text",
+        "z": "feaf9d0c80e58894",
+        "group": "212318e59dfaa3b1",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Altitude:",
+        "format": "{{msg.payload.altitude}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 960,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "98989d846f697d2c",
+        "type": "ui_text",
+        "z": "feaf9d0c80e58894",
+        "group": "212318e59dfaa3b1",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Engine:",
+        "format": "{{msg.payload.engine}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 960,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "2c63479db93ffea2",
+        "type": "ui_chart",
+        "z": "feaf9d0c80e58894",
+        "name": "Altitude",
+        "group": "e53056d0f064a35e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Altitude",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "500",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1440,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cbe0f3e1df17e750",
+        "type": "change",
+        "z": "feaf9d0c80e58894",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload.status",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.engine",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.command",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "time",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            },
+            {
+                "t": "move",
+                "p": "payload.altitude",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 360,
+        "wires": [
+            [
+                "2c63479db93ffea2"
+            ]
+        ]
+    },
+    {
+        "id": "1d790a4b5406b26b",
+        "type": "ui_text",
+        "z": "feaf9d0c80e58894",
+        "group": "212318e59dfaa3b1",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Command:",
+        "format": "{{msg.payload.command}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 970,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "04cdcd0599b03680",
+        "type": "ui_template",
+        "z": "feaf9d0c80e58894",
+        "group": "c4067f14d01378fe",
+        "name": "About",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "format": "</br>\n<h1>Space Klaus</h1>\n<p>\n    Este projeto foi desenvolvido como atividade avaliativa da matéria de <b>TÓPICOS AVANÇADOS EM COMPUTAÇÃO II</b> na Universidade Feevale.\n</p>\n\n<p>\n    <h5>\n        Jeferson Klaus </br>\n        Matricula 0118230\n    </h5>\n</p>\n",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1830,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "df7e1729b7342426",
+        "type": "switch",
+        "z": "feaf9d0c80e58894",
+        "name": "",
+        "property": "payload.status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "LANDED",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "FLYING",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 900,
+        "wires": [
+            [
+                "2f88f62b0216a307",
+                "2a6d595f0462462a"
+            ],
+            [
+                "df4ac3452c54764b",
+                "3cfd234f22a10cf9"
+            ]
+        ]
+    },
+    {
+        "id": "df4ac3452c54764b",
+        "type": "change",
+        "z": "feaf9d0c80e58894",
+        "name": "Disable Takeoff",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 980,
+        "wires": [
+            [
+                "f7a6b560a3573a3b"
+            ]
+        ]
+    },
+    {
+        "id": "6955466dc68c7375",
+        "type": "ui_text",
+        "z": "feaf9d0c80e58894",
+        "group": "212318e59dfaa3b1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Last Command",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 980,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "2f88f62b0216a307",
+        "type": "change",
+        "z": "feaf9d0c80e58894",
+        "name": "Disable Land",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 860,
+        "wires": [
+            [
+                "fd39ac30b19d69d6"
+            ]
+        ]
+    },
+    {
+        "id": "2a6d595f0462462a",
+        "type": "change",
+        "z": "feaf9d0c80e58894",
+        "name": "Enable Takeoff",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 920,
+        "wires": [
+            [
+                "f7a6b560a3573a3b"
+            ]
+        ]
+    },
+    {
+        "id": "3cfd234f22a10cf9",
+        "type": "change",
+        "z": "feaf9d0c80e58894",
+        "name": "Enable Land",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 800,
+        "wires": [
+            [
+                "fd39ac30b19d69d6"
+            ]
+        ]
+    },
+    {
+        "id": "9ebc9bdfa20cdae1",
+        "type": "comment",
+        "z": "feaf9d0c80e58894",
+        "name": "Control painel - spaceship",
+        "info": "",
+        "x": 1010,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3d27c1d931a4d9b0",
+        "type": "comment",
+        "z": "feaf9d0c80e58894",
+        "name": "Control painel - history",
+        "info": "",
+        "x": 1400,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b39ab4ed2111fea5",
+        "type": "comment",
+        "z": "feaf9d0c80e58894",
+        "name": "About",
+        "info": "",
+        "x": 1830,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "0637de2088cb4282",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "212318e59dfaa3b1",
+        "type": "ui_group",
+        "name": "Spaceship",
+        "tab": "2d56e052c06a9e5f",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e53056d0f064a35e",
+        "type": "ui_group",
+        "name": "History",
+        "tab": "2d56e052c06a9e5f",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c4067f14d01378fe",
+        "type": "ui_group",
+        "name": "About",
+        "tab": "a1a1227160752cf5",
+        "order": 1,
+        "disp": false,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2d56e052c06a9e5f",
+        "type": "ui_tab",
+        "name": "Control Panel",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "a1a1227160752cf5",
+        "type": "ui_tab",
+        "name": "About",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false,
+        "info": "# **Space Klaus**\r\n\r\nEste projeto foi desenvolvido como atividade avaliativa da matéria de TÓPICOS AVANÇADOS EM COMPUTAÇÃO II na Universidade Feevale.\r\n\r\n\r\n_Jeferson Klaus_\r\n_Matricula 0118230_"
+    }
+]
