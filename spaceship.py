@@ -9,7 +9,7 @@ from esp_libs.sonar import Sonar
 
 
 class SpaceshipCommand:
-    NONE = "NONE"
+    NONE = "EMPTY"
     ABORT = "ABORT"
     LAND = "LAND"
     TAKE_OFF = "TAKE OFF"
@@ -176,6 +176,9 @@ class Spaceship:
 
         self.status_spaceship = SpaceshipStatus.ABORT
         self.spaceship_command == SpaceshipCommand.ABORT
+
+        time.sleep(5)
+        self.spaceship_command == SpaceshipCommand.NONE
 
     def enable_mqtt_logs(self, client, topic):
         self.mqtt_client = client

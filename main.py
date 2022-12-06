@@ -18,16 +18,6 @@ TOPIC_SUBSCRIBE = b"spaceship/commands"
 TOPIC_STATUS_HARDWARE = b"status/hardware"
 
 
-def get_network_connection():
-    network = Network()
-    network.sta_setup(ssid_router=SSID_ROUTER, password_router=PASSWORD_ROUTER)
-
-    while not network.sta_connection.isconnected():
-        pass
-
-    return network
-
-
 def subscri_callback(topic, msg):
     command = msg.decode("utf-8")
     if command == "LAND":
@@ -38,15 +28,22 @@ def subscri_callback(topic, msg):
         print("TAKE_OFF")
         spaceship.takeoff()
 
-    elif command == "ABORT":
+
+def get_network_connection():
+    network = Network()
+    network.sta_setup(ssid_router=SSID_ROUTER, password_router=PASSWORD_ROUTER)
+
+    while not network.sta_connection.isconnected():
         pass
+
+    return network
 
 
 def get_mqtt_connection():
     client = MQTTClient(
         client_id="esp32-id-" + str(random.randint(0, 1000)),
         server=BROKER_SERVER,
-        keepalive=10,
+        keepalive=60,
     )
     client.set_callback(subscri_callback)
     client.connect()
@@ -71,7 +68,7 @@ def check_msg(client):
         lock.release()
 
 
-def public_status(client):
+def public_status():
     while True:
         time.sleep(5)
 
@@ -79,15 +76,9 @@ def public_status(client):
         try:
             print("public_status")
             spaceship.generate_mqtt_log()
-            # client.publish(
-            #     topic=TOPIC_STATUS_HARDWARE,
-            #     msg=json.dumps(spaceship.get_status()),
-            #     qos=0,
-            # )
         except Exception as error:
             print("public_status error")
             print(error)
-            client = get_mqtt_connection()
             pass
 
         lock.release()
@@ -95,7 +86,7 @@ def public_status(client):
 
 def main():
     _thread.start_new_thread(check_msg, (client,))
-    _thread.start_new_thread(public_status, (client,))
+    _thread.start_new_thread(public_status, ())
 
     while True:
         try:
@@ -105,7 +96,6 @@ def main():
             time.sleep(2)
             reset()
         except:
-            # client = get_mqtt_connection()
             print("Device needs to be reseted")
 
 
