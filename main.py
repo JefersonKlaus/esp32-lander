@@ -10,8 +10,8 @@ from esp_libs.network import Network
 from esp_libs.sonar import Sonar
 from spaceship import Spaceship, SpaceshipCommand
 
-SSID_ROUTER = "Gigaweb Fibra Klaus"
-PASSWORD_ROUTER = "Mrjjklaus1306@"
+SSID_ROUTER = "SSID"
+PASSWORD_ROUTER = "PASSWORD"
 
 BROKER_SERVER = "192.168.2.108"
 TOPIC_SUBSCRIBE = b"spaceship/commands"
